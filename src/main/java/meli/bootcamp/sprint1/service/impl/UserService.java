@@ -6,21 +6,12 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import meli.bootcamp.sprint1.dto.response.FollowersDto;
-import meli.bootcamp.sprint1.dto.response.FollowedDto;
-import meli.bootcamp.sprint1.dto.response.UserFollowedDto;
+import meli.bootcamp.sprint1.dto.response.*;
 import meli.bootcamp.sprint1.exception.EmptyListException;
-import meli.bootcamp.sprint1.dto.response.LastPostsDto;
-import meli.bootcamp.sprint1.dto.response.PostDto;
-import meli.bootcamp.sprint1.dto.response.ProductDto;
-
-import meli.bootcamp.sprint1.dto.response.FollowerDto;
-import meli.bootcamp.sprint1.dto.response.UserDto;
 
 import org.springframework.stereotype.Service;
 
 import meli.bootcamp.sprint1.dto.request.NewPostDto;
-import meli.bootcamp.sprint1.dto.response.BaseResponseDto;
 import meli.bootcamp.sprint1.entity.Category;
 import meli.bootcamp.sprint1.entity.Post;
 import meli.bootcamp.sprint1.entity.Product;
@@ -83,7 +74,7 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public UserDto getFollowersById(int id, String order) {
+  public UserWFollowerListDto getFollowersById(int id, String order) {
     User user = getUserFromRepository(id);
     verifyIfUserExists(user);
 
@@ -91,14 +82,14 @@ public class UserService implements IUserService {
             .filter(follower -> !follower.isEmpty())
             .orElseThrow(() -> new EmptyListException("The User " + id + " has no followers users"));
 
-    List<FollowerDto> followerDtoList = followers.stream()
+    List<UserDto> followerDtoList = followers.stream()
             .map(this::getUserFromRepository)
-            .map(findFollower -> new FollowerDto(findFollower.getId(), findFollower.getName()))
+            .map(findFollower -> new UserDto(findFollower.getId(), findFollower.getName()))
             .toList();
 
-    followerDtoList = getOrderFollowerDtos(order, followerDtoList);
+    followerDtoList = getSortedList(order, followerDtoList);
 
-    return new UserDto(user.getId(), user.getName(), followerDtoList);
+    return new UserWFollowerListDto(user.getId(), user.getName(), followerDtoList);
   }
 
   @Override
@@ -132,7 +123,7 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public UserFollowedDto getFollowed(Integer id, String order) {
+  public UserWFollowedDto getFollowed(Integer id, String order) {
     User user = getUserFromRepository(id);
 
     verifyIfUserExists(user);
@@ -141,13 +132,13 @@ public class UserService implements IUserService {
       throw new EmptyListException("The User " + id + " has no followed users");
     }
 
-    List<FollowedDto> followed = user.getFollowed().stream()
-            .map(u -> new FollowedDto(u, getUserFromRepository(u).getName()))
+    List<UserDto> followed = user.getFollowed().stream()
+            .map(u -> new UserDto(u, getUserFromRepository(u).getName()))
             .toList();
 
-    followed = getOrderFollowedDtos(order, followed);
+    followed = getSortedList(order, followed);
 
-    return new UserFollowedDto(user.getId(), user.getName(), followed);
+    return new UserWFollowedDto(user.getId(), user.getName(), followed);
   }
 
   @Override
@@ -205,35 +196,20 @@ public class UserService implements IUserService {
     return this.repository.findUserById(id);
   }
 
-  private List<FollowedDto> getOrderFollowedDtos(String order, List<FollowedDto> followed) {
+  private List<UserDto> getSortedList(String order, List<UserDto> userDtoList) {
     if (order == null || order.equals("name_asc")) {
-      followed = followed.stream()
-              .sorted(Comparator.comparing(FollowedDto::getUser_name))
+      userDtoList = userDtoList.stream()
+              .sorted(Comparator.comparing(UserDto::getUser_name))
               .toList();
     } else if (order.equals("name_desc")) {
-      followed = followed.stream()
-              .sorted(Comparator.comparing(FollowedDto::getUser_name).reversed())
+      userDtoList = userDtoList.stream()
+              .sorted(Comparator.comparing(UserDto::getUser_name).reversed())
               .toList();
     }
     else{
-      throw  new BadRequestException("Parameter " + order + " is not valid");
+      throw  new BadRequestException("Parameter '" + order + "' is not valid");
     }
-    return followed;
-  }
-
-  private List<FollowerDto> getOrderFollowerDtos(String order, List<FollowerDto> followerDtoList) {
-    if (order == null || order.equals("name_asc")) {
-      followerDtoList = followerDtoList.stream()
-              .sorted(Comparator.comparing(FollowerDto::getUser_name))
-              .toList();
-    } else if (order.equals("name_desc")) {
-      followerDtoList = followerDtoList.stream()
-              .sorted(Comparator.comparing(FollowerDto::getUser_name).reversed())
-              .toList();
-    } else {
-      throw  new BadRequestException("Parameter " + order + " is not valid");
-    }
-      return followerDtoList;
+    return userDtoList;
   }
 
 }
