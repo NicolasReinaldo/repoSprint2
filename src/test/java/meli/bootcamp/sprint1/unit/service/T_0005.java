@@ -19,11 +19,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class T_0005 {
-
-    /*
-    * Verificar que el tipo de ordenamiento por fecha exista (US-0009)
-    */
-
     @Mock
     GeneralRepository repository;
 
@@ -51,11 +46,31 @@ public class T_0005 {
     }
 
     @Test
-    @DisplayName("T-0008/ Verify parameter order")
+    @DisplayName("T-0008/ Verify parameter order: null")
+    void T_0008Null(){
+        //Arrange
+        int userId = 2;
+        User user = generateUser();
+        User seller = generateSeller();
+
+        String order = null;
+
+        LastPostsDto expected = generateLastPostDto();
+
+        when(repository.findUserById(2)).thenReturn(user);
+        when(repository.findUserById(seller.getId())).thenReturn(seller);
+        //Act
+        LastPostsDto actual = service.getLastPosts(userId,order);
+        //Assert
+        assertEquals(expected.getUser_id(), actual.getUser_id());
+    }
+
+    @Test
+    @DisplayName("T-0008/ Verify parameter order, throws exception")
     void T_0008NotOk(){
         //Arrange
         int userId = 1;
-        String order = "cualquiercosa";
+        String order = "";
         //Act
         //Assert
         assertThrows(BadRequestException.class, ()-> service.getLastPosts(userId,order));

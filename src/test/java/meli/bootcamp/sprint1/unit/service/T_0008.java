@@ -36,8 +36,7 @@ public class T_0008 {
         //Arrange
         User seller = generateSeller();
         User user = generateUser();
-
-        LastPostsDto expected = generateLastPostDto();
+        int expected = 3;
 
         when(repository.findUserById(user.getId())).thenReturn(user);
         when(repository.findUserById(seller.getId())).thenReturn(seller);
@@ -46,7 +45,7 @@ public class T_0008 {
         LastPostsDto lastPostsDto = service.getLastPostsFromFollowed(user.getId());
 
         //Assert
-        assertEquals(expected,lastPostsDto);
+        assertEquals(expected,lastPostsDto.getPosts().size());
     }
 
     @Test

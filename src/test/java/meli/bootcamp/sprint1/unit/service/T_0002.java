@@ -20,10 +20,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class T_0002 {
-    /*
-    * Verificar que el usuario a dejar de seguir exista. (US-0007)
-    */
-
     @Mock
     GeneralRepository repository;
 
@@ -42,13 +38,15 @@ public class T_0002 {
         when(repository.findUserById(userFollowed.getId())).thenReturn(userFollowed);
         when(repository.unfollowUser(userFollower.getId(), userFollowed.getId())).thenReturn(true);
 
+        //Act
         BaseResponseDto actual = service.unfollowUser(userFollower.getId(), userFollowed.getId());
 
+        //Assert
         assertEquals(expected,actual);
     }
 
     @Test
-    @DisplayName("T-0008/ Verify user existance")
+    @DisplayName("T-0008/ Verify user not exists")
     void T_0002NotOk(){
         //Arrange
         User userFollower = generateUser();
@@ -57,7 +55,8 @@ public class T_0002 {
         when(repository.findUserById(userFollower.getId())).thenReturn(userFollower);
         when(repository.findUserById(userFollowed.getId())).thenReturn(null);
 
-
+        //Act
+        //Assert
         assertThrows(BadRequestException.class, ()-> service.unfollowUser(userFollower.getId(), userFollowed.getId()));
     }
 

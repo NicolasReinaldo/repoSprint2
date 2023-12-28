@@ -2,26 +2,19 @@ package meli.bootcamp.sprint1.unit.service;
 
 import meli.bootcamp.sprint1.dto.response.LastPostsDto;
 import meli.bootcamp.sprint1.entity.User;
-import meli.bootcamp.sprint1.exception.BadRequestException;
 import meli.bootcamp.sprint1.repository.impl.GeneralRepository;
 import meli.bootcamp.sprint1.service.impl.UserService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDate;
 
 import static meli.bootcamp.sprint1.utils.Factory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +26,7 @@ public class T_0006 {
 
     @Test
     @DisplayName("T_0006OrderByDateDesc")
-    void T_0006OrderByDateDesc() throws Exception{
+    void T_0006OrderByDateDesc(){
 
         //Arrange
         String order = "date_desc";
@@ -55,7 +48,7 @@ public class T_0006 {
 
     @Test
     @DisplayName("T_0006OrderByDateAsc")
-    void T_0006OrderByDateAsc() throws Exception{
+    void T_0006OrderByDateAsc(){
 
         //Arrange
         String order = "date_asc";

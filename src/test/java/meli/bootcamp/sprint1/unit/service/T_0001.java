@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static meli.bootcamp.sprint1.utils.Factory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

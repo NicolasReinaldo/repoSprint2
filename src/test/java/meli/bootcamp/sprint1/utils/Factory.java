@@ -20,52 +20,6 @@ import java.util.List;
 
 public class Factory {
 
-    private final List<User> users;
-    private List<Category> categories;
-
-    public Factory() {
-        this.categories = this.loadCategories();
-        this.users = this.loadUsers();
-    }
-
-    private List<Category> loadCategories() {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:static/categories.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Category>> typeRef = new TypeReference<>() {
-        };
-        List<Category> categories = null;
-        try {
-            categories = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return categories;
-    }
-
-    private List<User> loadUsers() {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:static/users.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<User>> typeRef = new TypeReference<>() {
-        };
-        List<User> users = null;
-        try {
-            users = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
-
     public static LastPostsDto generateLastPostDto(){
         return new LastPostsDto(2,List.of(
                 new PostDto(  1,  1,  LocalDate.now(),
@@ -121,9 +75,12 @@ public class Factory {
 
     public static List<Post> generatePost(){
         Product product = new Product(1,"Tele","Gamer","Razer","Special Edition","Red Black");
-        return List.of(new Post(product, LocalDate.now(),new Category(1,"Electronic"),100.00),
+        return List.of(
+                new Post(product, LocalDate.now(),new Category(1,"Electronic"),100.00),
                 new Post(product, LocalDate.of(2023,12,20),new Category(1,"Electronic"),100.00),
-                new Post(product, LocalDate.of(2023,12,18),new Category(1,"Electronic"),100.00)
+                new Post(product, LocalDate.of(2023,12,18),new Category(1,"Electronic"),100.00),
+                new Post(product, LocalDate.of(2022,12,18),new Category(1,"Electronic"),100.00),
+                new Post(product, LocalDate.of(2021,12,18),new Category(1,"Electronic"),100.00)
                 );
     }
     public static User generateSeller(){
@@ -152,6 +109,13 @@ public class Factory {
         userDtoList.add(new UserDto(1,"Ailen Pereira"));
 
         return new UserWFollowerListDto(4,"Geronimo Schmidt",orderUserDtoList(userDtoList,order));
+    }
+
+    public static List<User> generateUsersList(){
+        return List.of(new User(1,"Ailen Pereira",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(2,"Brenda Torrico",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(3,"Fatima Noble",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(4,"Geronimo Schmidt",true, Collections.emptyList(),Collections.emptyList(),List.of(1,2,3)));
     }
 
     private static List<UserDto> orderUserDtoList(List<UserDto> userDtoList, String order) {
@@ -192,12 +156,5 @@ public class Factory {
         }else {
             return postList;
         }
-    }
-
-    public static List<User> generateUsersList(){
-        return List.of(new User(1,"Ailen Pereira",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
-                ,new User(2,"Brenda Torrico",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
-                ,new User(3,"Fatima Noble",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
-                ,new User(4,"Geronimo Schmidt",true, Collections.emptyList(),Collections.emptyList(),List.of(1,2,3)));
     }
 }

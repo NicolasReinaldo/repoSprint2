@@ -1,6 +1,5 @@
 package meli.bootcamp.sprint1.unit.service;
 
-import meli.bootcamp.sprint1.dto.response.UserDto;
 import meli.bootcamp.sprint1.dto.response.UserWFollowerListDto;
 import meli.bootcamp.sprint1.entity.User;
 import meli.bootcamp.sprint1.exception.EmptyListException;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class T_0004 {
     @InjectMocks
     UserService service;
     @Test
-    public void validarDesc() throws Exception {
+    public void validarDesc(){
         int userId = 4;
         String order = "name_desc";
 
@@ -45,7 +43,7 @@ public class T_0004 {
         assertEquals(actual.getFollowers(),userExpected.getFollowers());
     }
     @Test
-    public void validarAsc() throws Exception {
+    public void validarAsc(){
         int userId = 4;
         String order = "name_asc";
 
@@ -62,13 +60,11 @@ public class T_0004 {
     }
 
     @Test
-    void emptyListTest () throws Exception{
+    void emptyListTest (){
         int userId = 4;
         String orderAsc = "name_asc";
         String orderDesc = "name_desc";
         String order = "";
-
-        UserWFollowerListDto userExpected = new UserWFollowerListDto(4,"Geronimo Schmidt",Collections.emptyList());
 
         User user4 = new User(userId,"Geronimo Schmidt",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList());
 
