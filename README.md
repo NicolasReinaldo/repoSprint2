@@ -1,186 +1,61 @@
+# Sprint N° 2
+### Grupo 5
+## User Stories
+SocialMeli contaba anteriormente con las siguientes User Stories y requerimientos técnicos:
 
-# Sprint N° 1
-
-Presentación de una versión Beta de lo que va a ser conocido como “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
-​
-
-## Definiciones de Equipo
-​
-En el archivo `SPRINT 1.postman_collection.json` se encuentra la colección de Postman para ejecutar las pruebas.
-
-
-## API Reference
-
-## Desarrollo Grupal
- Grupo 5
-
-#### US 0001: 
+### US-0001: 
 Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
 
-
-```http
-  POST /users/{userId}/follow/{userIdToFollow}
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `userId ` | `int`    | Número que identifica al usuario actual|
-| `userIdToFollow ` | `int`    | Número que identifica al usuario a seguir|
-
-#### US 0002: 
+### US-0002: 
 Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
 
-```http
-  GET /users/{userId}/followers/count
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-
-#### US 0003: 
+### US-0003: 
 Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
-
-```http
-  GET /users/{userId}/followers/list
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-
-#### US 0004: 
-Obtener  un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
-
-```http
-  GET /users/{userId}/followed/list
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-
-#### US 0005: 
-Dar de alta una nueva publicación
-
-```http
-  POST /products/post
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-| `date ` | `LocalDate`    | Fecha de la publicación en formato dd-MM-yyyy|
-| `product_id ` | `int`    | Número identificatorio de un producto asociado a una publicación|
-| `product_name ` | `String`    | Cadena de caracteres que representa el nombre de un producto|
-| `type ` | `String`    | Cadena de caracteres que representa el tipo de un producto|
-| `brand ` | `String`    | Cadena de caracteres que representa la marca de un producto|
-| `color ` | `String`    |Cadena de caracteres que representa el color de un producto|
-| `notes ` | `String`    | Cadena de caracteres para colocar notas u observaciones de un producto|
-| `category ` | `int`    | Identificador que sirve para conocer la categoría a la que pertenece un producto. Por ejemplo: 100: Sillas, 58: Teclados|
-| `price ` | `double`    | Precio del producto|
-
-#### US 0006: 
+### US-0004: 
+Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
+### US-0005: 
+Dar de alta una nueva publicación.
+### US-0006: 
 Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
-
-```http
-  GET /products/followed/{userId}/list
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-
-#### US 0007: 
+### US-0007: 
 Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
-
-```http
-  GET /users/{userId}/unfollow/{userIdToUnfollow}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-| `userIdToUnfollow ` | `int`    | Número que identifica al usuario a dejar de seguir|
+### US-0008: 
+Ordenamiento alfabético ascendente y descendente.
+### US-0009: 
+Ordenamiento por fecha ascendente y descendente.
+​
 
 
-#### US 0008: 
-Ordenamiento alfabético ascendente y descendente
-
-```http
-  Nota: Este ordenamiento aplica solo para US-003 y US-004.
-```
-
-| Parameter | Description                       |
-| :-------- |  :-------------------------------- |
-| `name_asc ` | Alfabético ascendente.|
-| `name_desc ` | Alfabético descendente.|
-
-#### US 0009: 
-Ordenamiento por fecha ascendente y descendente
-
-```http
-  Nota: Este ordenamiento aplica solo para la US-006
-```
-
-| Parameter | Description                       |
-| :-------- |  :-------------------------------- |
-| `date_asc ` | Fecha ascendente (de más antigua a más nueva)|
-| `date_desc ` | Fecha descendente (de más nueva a más antigua)|
-
-## Desarrollo Individual
-
-#### US 0010: 
-Llevar a cabo la publicación de un nuevo producto en promoción
-
-```http
-  POST /products/promo-post
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-| `date ` | `LocalDate`    | Fecha de la publicación en formato dd-MM-yyyy|
-| `product_id ` | `int`    | Número identificatorio de un producto asociado a una publicación|
-| `product_name ` | `String`    | Cadena de caracteres que representa el nombre de un producto|
-| `type ` | `String`    | Cadena de caracteres que representa el tipo de un producto|
-| `brand ` | `String`    | Cadena de caracteres que representa la marca de un producto|
-| `color ` | `String`    |Cadena de caracteres que representa el color de un producto|
-| `notes ` | `String`    | Cadena de caracteres para colocar notas u observaciones de un producto|
-| `category ` | `int`    | Identificador que sirve para conocer la categoría a la que pertenece un producto. Por ejemplo: 100: Sillas, 58: Teclados|
-| `price ` | `double`    | Precio del producto|
-| `has_promo ` | `boolean`    | Campo true o false para determinar si un producto está en promoción o no|
-| `discount ` | `double`    | En caso de que un producto estuviese en promoción ,establece el monto de descuento.|
+## Tests Unitarios:
+A continuación se solicita una serie de test unitarios a llevar a cabo; sin embargo, en caso de que se considere necesario implementar otros, esto es totalmente viable.
 
 
-#### US 0011: 
-Obtener la cantidad de productos en promoción de un determinado vendedor
-
-```http
-  GET /products/promo-post/count?user_id={userId}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId ` | `int`    | Número que identifica a cada usuario|
-| `user_name ` | `String`    | Cadena de caracteres que representa el nombre del usuario|
-| `promo_products_count ` | `int`    | Cantidad numérica de productos en promoción de un determinado usuario.|
+|  | Situaciones de entrada     | Comportamiento Esperado                |
+| :-------- | :------- | :------------------------- |
+| `T-0001 ` | Verificar que el usuario a seguir exista. `(US-0001)`    |**Se cumple**: Permite continuar con normalidad. **No se cumple**: Notifica la no existencia mediante una excepción.|
+| `T-0002 ` | Verificar que el usuario a dejar de seguir exista. `(US-0007)`    |**Se cumple**: Permite continuar con normalidad. **No se cumple**: Notifica la no existencia mediante una excepción.|
+| `T-0003 ` | Verificar que el tipo de ordenamiento alfabético exista `(US-0008)`    |**Se cumple**: Permite continuar con normalidad. **No se cumple**: Notifica la no existencia mediante una excepción.|
+| `T-0004 ` | Verificar el correcto ordenamiento ascendente y descendente por nombre. `(US-0008)`    |**Se cumple**: Permite continuar con normalidad. **No se cumple**: Notifica la no existencia mediante una excepción.|
+| `T-0005 ` | Verificar que el tipo de ordenamiento por fecha exista `(US-0009)`    |**Se cumple**: Permite continuar con normalidad. **No se cumple**: Notifica la no existencia mediante una excepción.|
+| `T-0006 ` | Verificar el correcto ordenamiento ascendente y descendente por fecha. `(US-0009)`    |Verificar el correcto ordenamiento ascendente y descendente por fecha. **(US-0009)**|
+| `T-0007 ` | Verificar que la cantidad de seguidores de un determinado usuario sea correcta. `(US-0002)`    |Devuelve el cálculo correcto del total de la cantidad de seguidores que posee un usuario. |
+| `T-0008 ` | Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. `(US-0006)`    |Devuelve únicamente los datos de las publicaciones que tengan fecha de publicación dentro de las últimas dos semanas a partir del día de la fecha.|
 
 
 ​
-## Endpoints y responsables de su programación
+## Tests y responsables de su programación
 ​
-| Method | Endpoint | Responsable |
+| || Responsable |
 | :---         |     :---:      |          ---: |
-| `POST`     | `US 0001` /users/{userId}/follow/{userIdToFollow}       | Nicolas Reinaldo     |
-| `GET`   | `US 0002` /users/{userId}/followers/count     | Ailen Pereira Vilches    |
-| `GET`   | `US 0003` /users/{userId}/followers/list     | Gerónimo Schmidt |
-| `GET`   | `US 0004` /users/{userId}/followed/list     | Lucas Salerno    |
-| `POST`   | `US 0005` /products/post     | `ALL`    |
-| `GET`   | `US 0006` /products/followed/{userId}/list     | Tiago Ramirez    |
-| `POST`   | `US 0007` /users/{userId}/unfollow/{userIdToUnfollow}     | Fátima Noble    |
-| `GET`   | `US 0008` /users/{UserID}/followers/list?order=name_asc     | Ailen Pereira Vilches,  Nicolas Reinaldo  |
-| `GET`   | `US 0009` /products/followed/{userId}/list?order=date_asc     | Brenda Torrico |
+| `T-0001`     || Nicolas Reinaldo, Fátima Noble, Tiago Ramirez     |
+| `T-0002`   || Ailen Pereira Vilches, Brenda Torrico    |
+| `T-0003`   || Nicolas Reinaldo, Fátima Noble, Tiago Ramirez|
+| `T-0004`   || Gerónimo Schmidt, Lucas Salerno |
+| `T-0005`   || Ailen Pereira Vilches, Brenda Torrico   |
+| `T-0006`   || Gerónimo Schmidt, Lucas Salerno  |
+| `T-0007`   || Nicolas Reinaldo, Fátima Noble, Tiago Ramirez |
+| `T-0008`   || `ALL`|
+
 
 ## Integrantes
 
@@ -198,6 +73,3 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 - [@Nicolas Reinaldo](https://github.com/NicolasReinaldo)
 ​
 - [@Ailen Pereira Vilches](https://github.com/ailenvilches)
-
-# repoSprint2
-# repoSprint2
