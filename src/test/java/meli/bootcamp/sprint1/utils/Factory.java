@@ -92,4 +92,8 @@ public class Factory {
     public static User generateSellerNoFollowers(){
         return new User(3,"Tiago",true, List.of(generatePost()), Collections.emptyList(), Collections.emptyList());
     }
+
+    public static User generateUser2(){
+        return new User(4,"Fatima",false, Collections.emptyList(),List.of(1),List.of(1,2));
+    }
 }
