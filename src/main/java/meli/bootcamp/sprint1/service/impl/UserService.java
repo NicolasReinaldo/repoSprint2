@@ -185,10 +185,12 @@ public class UserService implements IUserService {
 
   @Override
   public LastPostsDto getLastPosts(int userId, String order) {
-    if ("date_asc".equals(order) || "date_desc".equals(order)) {
-      return getLastPostsOrdered(userId, order);
-    } else {
+    if(order == null){
       return getLastPostsFromFollowed(userId);
+    } else if ("date_asc".equals(order) || "date_desc".equals(order)) {
+      return getLastPostsOrdered(userId, order);
+    }else{
+      throw  new BadRequestException("Parameter '" + order + "' is not valid");
     }
   }
 
