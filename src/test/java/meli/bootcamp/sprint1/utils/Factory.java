@@ -2,9 +2,7 @@ package meli.bootcamp.sprint1.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import meli.bootcamp.sprint1.dto.response.LastPostsDto;
-import meli.bootcamp.sprint1.dto.response.PostDto;
-import meli.bootcamp.sprint1.dto.response.ProductDto;
+import meli.bootcamp.sprint1.dto.response.*;
 import meli.bootcamp.sprint1.entity.Category;
 import meli.bootcamp.sprint1.entity.Post;
 import meli.bootcamp.sprint1.entity.Product;
@@ -15,7 +13,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Factory {
@@ -87,5 +87,34 @@ public class Factory {
 
     public static User generateUser(){
         return new User(2,"Marco",false, Collections.emptyList(),List.of(1),Collections.emptyList());
+    }
+    public static UserWFollowerListDto generateUserDtoList(String order){
+        List<UserDto> userDtoList =  new ArrayList<UserDto>();
+        userDtoList.add(new UserDto(3,"Fatima Noble"));
+        userDtoList.add(new UserDto(2,"Brenda Torrico"));
+        userDtoList.add(new UserDto(1,"Ailen Pereira"));
+
+        return new UserWFollowerListDto(4,"Geronimo Schmidt",orderList(userDtoList,order));
+    }
+
+    private static List<UserDto> orderList(List<UserDto> userDtoList, String order) {
+        if(order == "name_asc"){
+            return userDtoList = userDtoList.stream()
+                    .sorted(Comparator.comparing(UserDto::getUser_name))
+                    .toList();
+        } else if(order == "name_desc"){
+            return userDtoList = userDtoList.stream()
+                    .sorted(Comparator.comparing(UserDto::getUser_name).reversed())
+                    .toList();
+        }else {
+            return userDtoList;
+        }
+    }
+
+    public static List<User> generateUsersList(){
+        return List.of(new User(1,"Ailen Pereira",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(2,"Brenda Torrico",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(3,"Fatima Noble",true, Collections.emptyList(),Collections.emptyList(),Collections.emptyList())
+                ,new User(4,"Geronimo Schmidt",true, Collections.emptyList(),Collections.emptyList(),List.of(1,2,3)));
     }
 }
